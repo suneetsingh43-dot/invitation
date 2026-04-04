@@ -11,7 +11,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>उपनयन संस्कार — चि॰ योगित कुमार</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>उपनयन संस्कार — चि॰ योगित कुमार</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root { --gold:#FFD700; --saffron:#FF9933; --cream:#FFF8E7; --maroon:#2a0800; --glass:rgba(255,255,255,0.07); }
@@ -115,7 +116,6 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
   font-family:'Noto Serif Devanagari', serif;
 }
 .btn:hover { background:var(--gold); color:var(--maroon); }
-
 .tel-link { color:var(--gold); text-decoration:none; font-weight:700; }
 
 #progress { position:absolute; top:0; left:0; height:3px; background:var(--gold); width:0%; z-index:100; }
@@ -123,17 +123,41 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
 .dot { width:6px; height:6px; border-radius:50%; background:rgba(255,215,0,0.22); transition:all .3s; cursor:pointer; }
 .dot.active { background:var(--gold); transform:scale(1.35); }
 
-/* Pause indicator */
-#pause-icon {
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  z-index:50; pointer-events:none;
-  opacity:0; transition:opacity 0.2s;
+/* ── Music button ── */
+#music-btn {
+  position:absolute; top:82px; right:20px; z-index:50;
+  width:38px; height:38px; border-radius:50%;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(255,215,0,0.45);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; pointer-events:auto;
+  transition:background 0.2s;
 }
-#pause-icon svg { width:64px; height:64px; }
-#pause-icon.visible { opacity:1; }
+#music-btn:hover { background:rgba(255,215,0,0.18); }
 
-/* Tap zone hint arrows */
+/* Equaliser bars */
+#eq {
+  display:none; align-items:flex-end;
+  gap:2px; height:16px; width:20px;
+}
+.eq-bar {
+  width:3px; border-radius:2px;
+  background:var(--gold);
+  transform-origin:bottom;
+}
+@keyframes eq1{0%,100%{height:4px}50%{height:14px}}
+@keyframes eq2{0%,100%{height:10px}40%{height:4px}}
+@keyframes eq3{0%,100%{height:7px}60%{height:16px}}
+@keyframes eq4{0%,100%{height:12px}30%{height:4px}}
+#eq.playing .eq-bar:nth-child(1){animation:eq1 0.7s ease infinite;}
+#eq.playing .eq-bar:nth-child(2){animation:eq2 0.9s ease infinite;}
+#eq.playing .eq-bar:nth-child(3){animation:eq3 0.6s ease infinite;}
+#eq.playing .eq-bar:nth-child(4){animation:eq4 0.8s ease infinite;}
+
+/* Note SVG icon */
+#note-icon { display:flex; align-items:center; justify-content:center; }
+
+/* Tap arrows */
 #tap-left, #tap-right {
   position:absolute; top:72px; bottom:40px; width:30%;
   z-index:15; display:flex; align-items:center;
@@ -143,11 +167,68 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
 #tap-right { right:0; justify-content:flex-end;   padding-right:16px; }
 #stage:hover #tap-left, #stage:hover #tap-right { opacity:1; }
 .tap-arrow { font-size:26px; color:rgba(255,215,0,0.22); }
+
+/* ── First-tap overlay (autoplay gate) ── */
+#tap-to-start {
+  position:absolute; inset:0; z-index:200;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  background:rgba(16,3,0,0.82);
+  backdrop-filter:blur(4px);
+  cursor:pointer;
+  transition:opacity 0.6s;
+}
+#tap-to-start p {
+  color:var(--gold);
+  font-size:clamp(14px,2.2vw,20px);
+  letter-spacing:2px;
+  margin-top:18px;
+  animation:pulse 1.8s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+#tap-to-start svg { width:64px; height:64px; opacity:0.85; }
 </style>
 </head>
 <body>
+
+<!--
+  ════════════════════════════════════════════════════
+   HOW TO ADD YOUR MP3
+  ════════════════════════════════════════════════════
+  1. Place your MP3 file in the same folder as this HTML.
+     Example: background_music.mp3
+
+  2. Find the <audio> tag below and change the src:
+     FROM:  src="YOUR_MUSIC_FILE.mp3"
+     TO:    src="background_music.mp3"   ← your filename
+
+  3. Open the HTML file in a browser. Done!
+
+  Tips:
+  • Any MP3/OGG/WAV file works.
+  • Keep the file in the same folder as this HTML.
+  • Recommended: a soft bhajan or shehnai track, ~3-5 min,
+    looping well. The audio loops automatically.
+  ════════════════════════════════════════════════════
+-->
+
+<!-- ★ CHANGE src BELOW TO YOUR MP3 FILENAME ★ -->
+<audio id="bgm" loop preload="auto">
+  <source src="https://suneetsingh43-dot.github.io/invitation/music.mp3" type="audio/mpeg">
+</audio>
+
 <div id="stage">
   <div id="progress"></div>
+
+  <!-- First-tap overlay — needed because browsers block autoplay until user gesture -->
+  <div id="tap-to-start">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="31" stroke="rgba(255,215,0,0.6)" stroke-width="1.5" fill="rgba(0,0,0,0.3)"/>
+      <!-- Play triangle -->
+      <polygon points="24,18 50,32 24,46" fill="#FFD700"/>
+    </svg>
+    <p>स्पर्श करें — संगीत के साथ शुरू करें</p>
+  </div>
 
   <svg class="toran" viewBox="0 0 1000 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0,14 Q250,28 500,14 Q750,28 1000,14" stroke="#6b3c12" stroke-width="2.5" fill="none"/>
@@ -158,20 +239,28 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
   <div class="frame-b"></div>
   <div class="band"><div class="band-txt">✦ ग्राम बौरा, पुपरी, सीतामढ़ी ✦ 20, 26, 27 अप्रैल 2026 ✦</div></div>
 
-  <!-- Pause overlay icon -->
-  <div id="pause-icon">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="32" cy="32" r="31" fill="rgba(0,0,0,0.5)" stroke="rgba(255,215,0,0.5)" stroke-width="1.5"/>
-      <rect x="20" y="18" width="8" height="28" rx="2.5" fill="#FFD700"/>
-      <rect x="36" y="18" width="8" height="28" rx="2.5" fill="#FFD700"/>
-    </svg>
+  <!-- Music toggle button -->
+  <div id="music-btn" title="संगीत चालू/बंद">
+    <div id="note-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18V6l11-2v12" stroke="#FFD700" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="6" cy="18" r="2.5" fill="#FFD700"/>
+        <circle cx="17" cy="16" r="2.5" fill="#FFD700"/>
+      </svg>
+    </div>
+    <div id="eq">
+      <div class="eq-bar" style="height:8px;"></div>
+      <div class="eq-bar" style="height:12px;"></div>
+      <div class="eq-bar" style="height:6px;"></div>
+      <div class="eq-bar" style="height:10px;"></div>
+    </div>
   </div>
 
-  <!-- Tap zone hint arrows -->
+  <!-- Tap zone hints -->
   <div id="tap-left"><span class="tap-arrow">‹</span></div>
   <div id="tap-right"><span class="tap-arrow">›</span></div>
 
-  <!-- SLIDE 0: Ganesh Shloka -->
+  <!-- SLIDE 0 -->
   <div class="slide active" id="s0">
     <div class="t-om r1">ॐ</div>
     <h2 class="t-ganesh shimmer r2">॥ श्री गणेशाय नमः ॥</h2>
@@ -182,7 +271,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
     <div class="divider r5"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
   </div>
 
-  <!-- SLIDE 1: Parents -->
+  <!-- SLIDE 1 -->
   <div class="slide" id="s1">
     <p class="t-intro r1">मान्यवर, माँ भगवती की असीम अनुकम्पा से</p>
     <div class="divider r2"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
@@ -194,7 +283,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
     <p class="t-sub r4">आपको सपरिवार सादर आमंत्रित करते हैं</p>
   </div>
 
-  <!-- SLIDE 2: Boy's Name -->
+  <!-- SLIDE 2 -->
   <div class="slide" id="s2">
     <p class="r1" style="font-size:clamp(15px,2.2vw,20px);color:var(--saffron);">🚩 शुभ उपनयन संस्कार 🚩</p>
     <div class="glass sc" style="width:92%;max-width:680px;padding:28px 36px;">
@@ -206,7 +295,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
     <p class="r5" style="margin-top:10px;color:var(--gold);">✨ कृपया पधार कर आशीर्वाद प्रदान करें ✨</p>
   </div>
 
-  <!-- SLIDE 3: Schedule -->
+  <!-- SLIDE 3 -->
   <div class="slide" id="s3">
     <h2 class="shimmer r1" style="letter-spacing:2px;margin-bottom:15px;">📅 कार्यक्रम विवरण</h2>
     <div class="glass r3" style="width:100%;max-width:420px;text-align:left;">
@@ -226,7 +315,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
     <a class="btn r4" href="https://www.google.com/calendar/render?action=TEMPLATE&text=चि॰+योगित+कुमार+उपनयन+संस्कार&dates=20260427T133000Z/20260427T173000Z&details=आप+सपरिवार+आमंत्रित+हैं।&location=Baura,Pupri,Sitamarhi,Bihar" target="_blank">📅 Google Calendar में जोड़ें</a>
   </div>
 
-  <!-- SLIDE 4: Venue & Contact -->
+  <!-- SLIDE 4 -->
   <div class="slide" id="s4">
     <h2 class="shimmer r1" style="letter-spacing:2px;">📍 कार्यक्रम स्थल</h2>
     <div class="glass r2">
@@ -256,43 +345,89 @@ html, body { width:100%; height:100%; overflow:hidden; background:#100300; user-
 </div>
 
 <script>
-// ── Toran beads ──────────────────────────────────────────────
+// ── Toran beads ───────────────────────────────────────────────
 const tg = document.getElementById('toran-g');
 let th = '';
 for (let i = 20; i <= 980; i += 40) {
-  const y = 14 + Math.sin(i / 80) * 7;
-  th += `<circle cx="${i}" cy="${y}" r="10" fill="${i % 80 === 20 ? '#FFD700' : '#FF9933'}"/>
+  const y = 14 + Math.sin(i/80)*7;
+  th += `<circle cx="${i}" cy="${y}" r="10" fill="${i%80===20?'#FFD700':'#FF9933'}"/>
          <circle cx="${i}" cy="${y}" r="3" fill="rgba(255,255,255,0.3)"/>`;
 }
 tg.innerHTML = th;
 
-// ── State ─────────────────────────────────────────────────────
+// ── Audio ─────────────────────────────────────────────────────
+const bgm       = document.getElementById('bgm');
+const musicBtn  = document.getElementById('music-btn');
+const noteIcon  = document.getElementById('note-icon');
+const eq        = document.getElementById('eq');
+let musicOn     = false;
+
+bgm.volume = 0.7;
+
+function setMusicUI(playing) {
+  musicOn = playing;
+  if (playing) {
+    noteIcon.style.display = 'none';
+    eq.style.display = 'flex';
+    eq.classList.add('playing');
+  } else {
+    noteIcon.style.display = 'flex';
+    eq.style.display = 'none';
+    eq.classList.remove('playing');
+  }
+}
+
+function startMusic() {
+  bgm.play().then(() => setMusicUI(true)).catch(() => setMusicUI(false));
+}
+
+function stopMusic() {
+  bgm.pause();
+  setMusicUI(false);
+}
+
+musicBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  musicOn ? stopMusic() : startMusic();
+});
+
+// ── First-tap overlay (unlocks autoplay) ──────────────────────
+const tapOverlay = document.getElementById('tap-to-start');
+let started = false;
+
+function dismissOverlay() {
+  if (started) return;
+  started = true;
+  tapOverlay.style.opacity = '0';
+  setTimeout(() => tapOverlay.style.display = 'none', 600);
+  startMusic();          // autoplay starts on first user gesture
+  startBar(0);
+  startAuto();
+}
+
+tapOverlay.addEventListener('click', dismissOverlay);
+tapOverlay.addEventListener('touchend', e => { e.preventDefault(); dismissOverlay(); });
+
+// ── Slider ────────────────────────────────────────────────────
 const DURATION = 6000;
-const slides     = document.querySelectorAll('.slide');
-const dots       = document.querySelectorAll('.dot');
-const bar        = document.getElementById('progress');
-const pauseIcon  = document.getElementById('pause-icon');
-const stage      = document.getElementById('stage');
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+const bar    = document.getElementById('progress');
+const stage  = document.getElementById('stage');
 
 let cur = 0, timer = null, paused = false;
 let progressStart = null, progressElapsed = 0;
-let holdTimer = null, isHolding = false;
-let pointerDownTime = 0;
+let holdTimer = null, isHolding = false, pointerDownTime = 0;
 
-// ── Show slide ────────────────────────────────────────────────
 function show(n) {
-  slides.forEach((s, i) => {
-    s.classList.toggle('active', i === n);
-    dots[i].classList.toggle('active', i === n);
-  });
+  slides.forEach((s,i) => { s.classList.toggle('active', i===n); dots[i].classList.toggle('active', i===n); });
 }
 
-// ── Progress bar ──────────────────────────────────────────────
 function startBar(from = 0) {
   bar.style.transition = 'none';
-  bar.style.width = (from / DURATION * 100) + '%';
+  bar.style.width = (from/DURATION*100)+'%';
   setTimeout(() => {
-    bar.style.transition = `width ${DURATION - from}ms linear`;
+    bar.style.transition = `width ${DURATION-from}ms linear`;
     bar.style.width = '100%';
   }, 30);
   progressStart = Date.now();
@@ -302,16 +437,15 @@ function startBar(from = 0) {
 function pauseBar() {
   const elapsed = progressElapsed + (Date.now() - progressStart);
   bar.style.transition = 'none';
-  bar.style.width = (Math.min(elapsed, DURATION) / DURATION * 100) + '%';
+  bar.style.width = (Math.min(elapsed,DURATION)/DURATION*100)+'%';
   progressElapsed = elapsed;
 }
 
-// ── Auto-advance ──────────────────────────────────────────────
 function startAuto() {
-  clearInterval(timer);
-  const remaining = Math.max(0, DURATION - progressElapsed);
+  clearTimeout(timer);
+  const remaining = Math.max(200, DURATION - progressElapsed);
   timer = setTimeout(() => {
-    cur = (cur + 1) % slides.length;
+    cur = (cur+1) % slides.length;
     show(cur);
     progressElapsed = 0;
     startBar(0);
@@ -319,7 +453,6 @@ function startAuto() {
   }, remaining);
 }
 
-// ── Navigate to slide ─────────────────────────────────────────
 function goTo(n) {
   cur = ((n % slides.length) + slides.length) % slides.length;
   show(cur);
@@ -329,19 +462,17 @@ function goTo(n) {
   startAuto();
 }
 
-// ── Pause / Resume ────────────────────────────────────────────
 function pause() {
   if (paused) return;
   paused = true;
   clearTimeout(timer);
   pauseBar();
-  pauseIcon.classList.add('visible');
+  // No visual icon — silent pause
 }
 
 function resume() {
   if (!paused) return;
   paused = false;
-  pauseIcon.classList.remove('visible');
   if (progressElapsed >= DURATION) progressElapsed = 0;
   startBar(progressElapsed);
   startAuto();
@@ -349,68 +480,52 @@ function resume() {
 
 // ── Dots ──────────────────────────────────────────────────────
 dots.forEach(d => {
-  d.addEventListener('click', e => {
-    e.stopPropagation();
-    goTo(parseInt(d.dataset.i));
-  });
+  d.addEventListener('click', e => { e.stopPropagation(); if (!started) return; goTo(parseInt(d.dataset.i)); });
 });
 
-// ── Pointer events (hold = pause, tap = nav) ──────────────────
+// ── Pointer: hold = pause, tap = navigate ─────────────────────
 stage.addEventListener('pointerdown', e => {
-  if (e.target.closest('a') || e.target.closest('.dot')) return;
+  if (!started) return;
+  if (e.target.closest('a') || e.target.closest('.dot') || e.target.closest('#music-btn') || e.target.closest('#tap-to-start')) return;
   pointerDownTime = Date.now();
   isHolding = false;
-  holdTimer = setTimeout(() => {
-    isHolding = true;
-    pause();
-  }, 300);
+  holdTimer = setTimeout(() => { isHolding = true; pause(); }, 300);
 });
 
 stage.addEventListener('pointerup', e => {
+  if (!started) return;
   clearTimeout(holdTimer);
-  if (isHolding) {
-    resume();
-    isHolding = false;
-    return;
-  }
-  if (Date.now() - pointerDownTime >= 300) return; // not a tap
-  if (e.target.closest('a') || e.target.closest('.dot')) return;
-
-  const rect  = stage.getBoundingClientRect();
-  const tapX  = e.clientX - rect.left;
-  if (tapX < rect.width * 0.35) {
-    goTo(cur - 1); // left tap → previous
-  } else {
-    goTo(cur + 1); // right tap → next
-  }
+  if (isHolding) { resume(); isHolding = false; return; }
+  if (Date.now() - pointerDownTime >= 300) return;
+  if (e.target.closest('a') || e.target.closest('.dot') || e.target.closest('#music-btn')) return;
+  const rect = stage.getBoundingClientRect();
+  const tapX = e.clientX - rect.left;
+  goTo(tapX < rect.width * 0.35 ? cur-1 : cur+1);
 });
 
 stage.addEventListener('pointerleave', () => {
   clearTimeout(holdTimer);
   if (isHolding) { resume(); isHolding = false; }
 });
-
 stage.addEventListener('contextmenu', e => e.preventDefault());
 
 // ── Falling petals ────────────────────────────────────────────
 function petal() {
-  const p  = document.createElement('div');
-  const sz = 6 + Math.random() * 10;
+  const p = document.createElement('div');
+  const sz = 6 + Math.random()*10;
   p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;background:#FF9933;opacity:0.5;
-    border-radius:100% 0 100% 0;top:-20px;left:${Math.random() * 100}%;z-index:2;pointer-events:none;`;
+    border-radius:100% 0 100% 0;top:-20px;left:${Math.random()*100}%;z-index:2;pointer-events:none;`;
   stage.appendChild(p);
-  const anim = p.animate([
-    { transform: 'translateY(0) rotate(0deg)', opacity: 0.5 },
-    { transform: `translateY(105vh) rotate(360deg) translateX(${Math.random() * 80 - 40}px)`, opacity: 0 }
-  ], { duration: 5000 + Math.random() * 3000 });
-  anim.onfinish = () => p.remove();
+  const a = p.animate([
+    { transform:'translateY(0) rotate(0deg)', opacity:0.5 },
+    { transform:`translateY(105vh) rotate(360deg) translateX(${Math.random()*80-40}px)`, opacity:0 }
+  ], { duration:5000+Math.random()*3000 });
+  a.onfinish = () => p.remove();
 }
 setInterval(petal, 400);
 
-// ── Init ──────────────────────────────────────────────────────
+// ── Init (slider shown but not auto-advancing until tap) ──────
 show(0);
-startBar(0);
-startAuto();
 </script>
 </body>
 </html>
