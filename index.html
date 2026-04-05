@@ -20,7 +20,11 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:none;touch-action:manipulation;}
 
-/* AURORA */
+@keyframes ganeshGlow {
+  0%,100% { box-shadow: 0 0 18px rgba(255,180,0,0.5), 0 0 40px rgba(255,100,0,0.2); }
+  50%      { box-shadow: 0 0 32px rgba(255,215,0,0.9), 0 0 70px rgba(255,150,0,0.4); }
+}
+
 #aurora{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 25%,#6b1010 0%,#2a0600 45%,#0a0100 100%);}
 .aurora-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:orbFloat 12s ease-in-out infinite;}
 .orb1{width:400px;height:400px;background:rgba(180,40,0,0.25);top:-80px;left:-60px;}
@@ -28,29 +32,23 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 .orb3{width:300px;height:300px;background:rgba(255,215,0,0.08);bottom:10%;left:15%;animation-delay:-8s;}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-20px) scale(1.08);}66%{transform:translate(-15px,25px) scale(0.95);}}
 
-/* MANDALA */
 #mandala-bg{position:fixed;inset:0;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0.04;}
 #mandala-bg svg{width:min(90vw,90vh);height:min(90vw,90vh);animation:mandalaSpin 60s linear infinite;}
 @keyframes mandalaSpin{to{transform:rotate(360deg);}}
 
-/* STAGE */
 #stage{width:100vw;height:100vh;position:relative;overflow:hidden;font-family:'Noto Serif Devanagari',serif;color:var(--cream);cursor:pointer;}
 
-/* TORAN */
 .toran{position:absolute;top:0;left:0;width:100%;height:80px;z-index:40;pointer-events:none;}
 .toran-bead{animation:beadGlow 2.5s ease-in-out infinite alternate;}
 @keyframes beadGlow{from{opacity:0.8;}to{opacity:1;filter:drop-shadow(0 0 6px #FFD700);}}
 
-/* SHIMMER */
 .shimmer{background:linear-gradient(100deg,#bf953f 0%,#fcf6ba 25%,#b38728 45%,#fbf5b7 65%,#FFD700 80%,#bf953f 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% auto;animation:shine 4s linear infinite;display:inline-block;}
 @keyframes shine{to{background-position:300% center;}}
 
-/* GLASS */
-.glass{background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border:1px solid rgba(255,215,0,0.25);border-radius:16px;padding:20px 28px;margin:10px 0;backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden;}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border:1px solid rgba(255,215,0,0.25);border-radius:16px;padding:16px 20px;margin:8px 0;backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden;}
 .glass::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.06),transparent);animation:glassSheen 5s ease-in-out infinite;}
 @keyframes glassSheen{0%,100%{left:-100%;}50%{left:100%;}}
 
-/* FRAMES */
 .frame-a{position:absolute;inset:8px;z-index:10;pointer-events:none;border:1px solid rgba(255,215,0,0.3);animation:framePulse 4s ease-in-out infinite;}
 .frame-b{position:absolute;inset:16px;z-index:10;pointer-events:none;border:0.5px solid rgba(255,215,0,0.1);}
 .corner{position:absolute;width:28px;height:28px;z-index:11;pointer-events:none;}
@@ -59,23 +57,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 .c-bl{bottom:6px;left:6px;transform:scaleY(-1);}.c-br{bottom:6px;right:6px;transform:scale(-1);}
 @keyframes framePulse{0%,100%{opacity:0.6;}50%{opacity:1;}}
 
-/* BAND */
-.band{position:absolute;bottom:8px;left:8px;right:8px;height:32px;z-index:10;pointer-events:none;border-top:0.5px solid rgba(255,215,0,0.2);background:rgba(20,3,0,0.8);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.band{position:absolute;bottom:8px;left:8px;right:8px;height:28px;z-index:10;pointer-events:none;border-top:0.5px solid rgba(255,215,0,0.2);background:rgba(20,3,0,0.8);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .band-inner{display:flex;gap:60px;white-space:nowrap;animation:bandScroll 16s linear infinite;}
-.band-txt{font-size:11px;color:rgba(255,215,0,0.55);letter-spacing:3px;}
+.band-txt{font-size:10px;color:rgba(255,215,0,0.55);letter-spacing:2px;}
 @keyframes bandScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* DIVIDER */
-.divider{display:flex;align-items:center;gap:10px;width:70%;margin:10px auto;}
+.divider{display:flex;align-items:center;gap:8px;width:65%;margin:6px auto;}
 .dl{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(255,215,0,0.4));}
 .dl.r{background:linear-gradient(to left,transparent,rgba(255,215,0,0.4));}
-.dd{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);opacity:0.7;flex-shrink:0;animation:diamondPulse 2s ease-in-out infinite;}
+.dd{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);opacity:0.7;flex-shrink:0;animation:diamondPulse 2s ease-in-out infinite;}
 @keyframes diamondPulse{0%,100%{opacity:0.7;transform:rotate(45deg) scale(1);}50%{opacity:1;transform:rotate(45deg) scale(1.4);}}
 
-/* SLIDES */
-.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:90px 40px 52px;opacity:0;visibility:hidden;transform:scale(0.94) translateY(10px);transition:opacity .8s ease,transform .8s cubic-bezier(0.2,0.8,0.2,1),visibility 0s .8s;text-align:center;z-index:5;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 36px 46px;opacity:0;visibility:hidden;transform:scale(0.94) translateY(10px);transition:opacity .8s ease,transform .8s cubic-bezier(0.2,0.8,0.2,1),visibility 0s .8s;text-align:center;z-index:5;}
 .slide.active{opacity:1;visibility:visible;transform:scale(1) translateY(0);transition:opacity .8s ease,transform .8s cubic-bezier(0.2,0.8,0.2,1);}
-@keyframes riseIn{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+@keyframes riseIn{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scaleIn{from{opacity:0;transform:scale(0.75);}to{opacity:1;transform:scale(1);}}
 @keyframes blurIn{from{opacity:0;filter:blur(10px);}to{opacity:1;filter:blur(0);}}
 .slide.active .r1{animation:riseIn .7s cubic-bezier(0.2,0.8,0.2,1) forwards .05s;opacity:0;}
@@ -86,10 +81,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 .slide.active .sc{animation:scaleIn .9s cubic-bezier(0.2,1,0.2,1) forwards .15s;opacity:0;}
 .slide.active .bi{animation:blurIn .9s ease forwards .1s;opacity:0;}
 
-/* AMBIENT LAYER — sits behind content, fills empty space per slide */
 .ambient{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden;}
 
-/* --- Shared ambient animations --- */
 @keyframes flicker{0%,100%{transform:scaleY(1) scaleX(1);}40%{transform:scaleY(1.14) scaleX(0.9);}70%{transform:scaleY(0.88) scaleX(1.08);}}
 @keyframes diyaFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
 @keyframes lotusBloom{0%,100%{opacity:0.13;transform:scale(0.96);}50%{opacity:0.22;transform:scale(1.04);}}
@@ -103,70 +96,79 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 @keyframes hourGlassSpin{0%,42%{transform:rotate(0deg);}50%,92%{transform:rotate(180deg);}100%{transform:rotate(180deg);}}
 @keyframes compassSpin{0%,100%{transform:rotate(0deg);}50%{transform:rotate(8deg);}}
 
-/* -- Slide 0 specific -- */
-.diya-l{position:absolute;left:3vw;top:50%;transform:translateY(-55%);animation:diyaFloat 3.5s ease-in-out infinite;}
-.diya-r{position:absolute;right:3vw;top:50%;transform:translateY(-55%);animation:diyaFloat 3.5s ease-in-out infinite;animation-delay:-1.3s;}
+.diya-l{position:absolute;left:2vw;top:50%;transform:translateY(-55%);animation:diyaFloat 3.5s ease-in-out infinite;}
+.diya-r{position:absolute;right:2vw;top:50%;transform:translateY(-55%);animation:diyaFloat 3.5s ease-in-out infinite;animation-delay:-1.3s;}
 .df{animation:flicker 1.3s ease-in-out infinite alternate;transform-origin:bottom center;}
 .dfi{animation:flicker 0.8s ease-in-out infinite alternate;transform-origin:bottom center;animation-delay:-.3s;}
-.lotus-tl{position:absolute;top:84px;left:28px;animation:lotusBloom 4s ease-in-out infinite;}
-.lotus-tr{position:absolute;top:84px;right:28px;animation:lotusBloom 4s ease-in-out infinite;animation-delay:-2s;}
+.lotus-tl{position:absolute;top:82px;left:22px;animation:lotusBloom 4s ease-in-out infinite;}
+.lotus-tr{position:absolute;top:82px;right:22px;animation:lotusBloom 4s ease-in-out infinite;animation-delay:-2s;}
 
-/* -- Slide 1 specific -- */
-.garland-top{position:absolute;top:84px;left:0;right:0;display:flex;justify-content:center;animation:garlandSway 4s ease-in-out infinite;}
-.pl-bl{position:absolute;bottom:44px;left:28px;animation:lotusBloom 5s ease-in-out infinite;}
-.pl-br{position:absolute;bottom:44px;right:28px;animation:lotusBloom 5s ease-in-out infinite;animation-delay:-2.5s;}
+.garland-top{position:absolute;top:82px;left:0;right:0;display:flex;justify-content:center;animation:garlandSway 4s ease-in-out infinite;}
+.pl-bl{position:absolute;bottom:40px;left:22px;animation:lotusBloom 5s ease-in-out infinite;}
+.pl-br{position:absolute;bottom:40px;right:22px;animation:lotusBloom 5s ease-in-out infinite;animation-delay:-2.5s;}
 .bless-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blessDot 3s ease-out infinite;}
 
-/* -- Slide 2 specific -- */
-.smoke-puff{position:absolute;bottom:52px;border-radius:50%;filter:blur(8px);animation:smokeRise 3s ease-out infinite;}
+.smoke-puff{position:absolute;bottom:50px;border-radius:50%;filter:blur(8px);animation:smokeRise 3s ease-out infinite;}
 .sp1{width:32px;height:32px;background:rgba(255,230,150,0.28);left:calc(50% - 65px);}
 .sp2{width:26px;height:26px;background:rgba(255,200,100,0.22);left:50%;animation-delay:-.9s;}
 .sp3{width:20px;height:20px;background:rgba(255,220,130,0.18);left:calc(50% + 42px);animation-delay:-.5s;}
 .cal-star{position:absolute;animation:starTwinkle 3s ease-in-out infinite;}
 
-/* -- Slide 3 specific -- */
 .hg-wrap{position:absolute;animation:diyaFloat 4s ease-in-out infinite;}
 
-/* -- Slide 4 specific -- */
 .map-pin{position:absolute;animation:pinDrop 4s ease-in-out infinite;}
 
-/* TYPOGRAPHY */
-.t-om{font-size:clamp(60px,11vw,110px);color:rgba(255,215,0,0.12);line-height:1;animation:omPulse 4s ease-in-out infinite;}
+/* ── TYPOGRAPHY — all inline, mobile-first ── */
+.t-om{font-size:clamp(44px,9vw,90px);color:rgba(255,215,0,0.12);line-height:1;display:block;animation:omPulse 4s ease-in-out infinite;}
 @keyframes omPulse{0%,100%{opacity:0.12;}50%{opacity:0.22;text-shadow:0 0 60px rgba(255,215,0,0.3);}}
-.t-ganesh{font-size:clamp(16px,2.8vw,30px);letter-spacing:4px;}
-.t-shloka{font-size:clamp(13px,1.7vw,19px);color:rgba(255,215,0,0.7);line-height:2.6;}
-.t-intro{font-size:clamp(13px,1.8vw,19px);color:rgba(255,248,231,0.65);line-height:2;}
-.t-parents{font-size:clamp(20px,3.2vw,38px);font-weight:700;line-height:1.8;}
-.t-sub{font-size:clamp(12px,1.5vw,17px);color:rgba(255,248,231,0.55);margin-top:12px;}
-.t-bsub{font-size:clamp(12px,1.4vw,16px);color:rgba(255,248,231,0.65);line-height:2.2;}
-.ancestor{color:var(--gold);font-weight:700;font-size:1.15em;}
-.sched-date{font-size:clamp(14px,1.9vw,20px);color:var(--gold);font-weight:600;}
-.sched-evt{font-size:clamp(12px,1.35vw,15px);color:rgba(255,248,231,0.75);margin-top:4px;}
-.venue-txt{font-size:clamp(14px,1.9vw,20px);line-height:2.4;}
-.child-q{font-size:clamp(13px,1.8vw,19px);color:rgba(255,215,0,0.85);font-style:italic;}
-.host{font-size:clamp(14px,1.9vw,20px);color:var(--gold);font-weight:600;margin-top:14px;}
-.name-glow{font-size:clamp(34px,6.5vw,74px);font-weight:700;text-shadow:0 0 40px rgba(255,215,0,0.4),0 0 80px rgba(255,153,51,0.2);animation:nameGlow 3s ease-in-out infinite;}
+
+.t-ganesh{font-size:clamp(14px,3.8vw,26px);letter-spacing:3px;display:block;}
+
+.t-shloka{font-size:clamp(12px,2.8vw,17px);color:rgba(255,215,0,0.7);line-height:2.4;display:block;}
+
+.t-intro{font-size:clamp(12px,3vw,17px);color:rgba(255,248,231,0.65);line-height:1.9;display:inline;}
+
+.t-parents{font-size:clamp(17px,4.5vw,34px);font-weight:700;line-height:1.6;display:block;}
+
+.t-sub{font-size:clamp(14px,3.5vw,20px);color:rgba(255,248,231,0.55);margin-top:8px;display:block;}
+
+.t-bsub{font-size:clamp(11px,2.6vw,15px);color:rgba(255,248,231,0.65);line-height:2;display:block;}
+
+.ancestor{color:var(--gold);font-weight:700;font-size:2.5em;}
+
+.sched-date{font-size:clamp(12px,3vw,17px);color:var(--gold);font-weight:600;display:block;}
+.sched-evt{font-size:clamp(11px,2.4vw,13px);color:rgba(255,248,231,0.75);margin-top:3px;display:block;}
+
+.venue-txt{font-size:clamp(13px,3.2vw,18px);line-height:2.2;display:block;}
+
+.child-q{font-size:clamp(12px,2.8vw,17px);color:rgba(255,215,0,0.85);font-style:italic;display:block;}
+
+.host{font-size:clamp(13px,3vw,18px);color:var(--gold);font-weight:600;margin-top:10px;display:block;}
+
+.name-glow{font-size:clamp(28px,8vw,68px);font-weight:700;display:block;text-shadow:0 0 40px rgba(255,215,0,0.4),0 0 80px rgba(255,153,51,0.2);animation:nameGlow 3s ease-in-out infinite;}
 @keyframes nameGlow{0%,100%{text-shadow:0 0 40px rgba(255,215,0,0.4),0 0 80px rgba(255,153,51,0.2);}50%{text-shadow:0 0 60px rgba(255,215,0,0.7),0 0 120px rgba(255,153,51,0.35);}}
 
-/* SCHED */
-.sched-item{padding:14px 0;position:relative;border-radius:8px;padding-left:14px;}
+.sched-item{padding:10px 0;position:relative;border-radius:8px;padding-left:12px;}
 .sched-item::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:0;background:var(--gold);border-radius:2px;transition:height .4s ease;}
 .sched-item:hover::before{height:70%;}
 .sched-item+.sched-item{border-top:.5px solid rgba(255,215,0,0.15);}
 
-/* BTN */
-.btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.4);color:var(--gold);padding:11px 26px;border-radius:30px;font-size:clamp(12px,1.4vw,15px);text-decoration:none;margin-top:12px;transition:all .35s cubic-bezier(0.2,0.8,0.2,1);font-family:'Noto Serif Devanagari',serif;}
+.btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.4);color:var(--gold);padding:9px 20px;border-radius:30px;font-size:clamp(11px,2.4vw,14px);text-decoration:none;margin-top:10px;transition:all .35s cubic-bezier(0.2,0.8,0.2,1);font-family:'Noto Serif Devanagari',serif;}
 .btn:hover{background:rgba(255,215,0,0.15);transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,215,0,0.2);}
 .tel-link{color:var(--gold);text-decoration:none;font-weight:700;}
 
-/* PROGRESS + DOTS */
+.sec-icon{font-size:clamp(20px,4vw,34px);display:block;margin-bottom:4px;animation:iconBounce 2s ease-in-out infinite;}
+@keyframes iconBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+/* heading inside slides */
+.slide-h2{font-size:clamp(15px,4vw,26px);letter-spacing:2px;display:block;}
+
 #progress{position:absolute;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--saffron),var(--gold));width:0%;z-index:100;box-shadow:0 0 8px rgba(255,215,0,0.5);}
-#dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:20;}
+#dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:20;}
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,215,0,0.2);transition:all .4s cubic-bezier(0.2,0.8,0.2,1);cursor:pointer;}
 .dot.active{background:var(--gold);transform:scale(1.4);box-shadow:0 0 8px rgba(255,215,0,0.5);}
 
-/* MUSIC */
-#music-btn{position:absolute;top:88px;right:18px;z-index:50;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,215,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;transition:all .3s;}
+#music-btn{position:absolute;top:86px;right:16px;z-index:50;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,215,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;transition:all .3s;}
 #music-btn:hover{background:rgba(255,215,0,0.15);box-shadow:0 0 16px rgba(255,215,0,0.3);}
 #eq{display:none;align-items:flex-end;gap:2px;height:16px;width:22px;}
 .eq-bar{width:3.5px;border-radius:2px;background:var(--gold);transform-origin:bottom;}
@@ -178,7 +180,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 #eq.playing .eq-bar:nth-child(4){animation:eq4 .8s ease infinite;}
 #note-icon{display:flex;align-items:center;justify-content:center;}
 
-/* TAP OVERLAY */
 #tap-to-start{position:absolute;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 70% at 50% 40%,#3d0a00 0%,#1a0200 50%,#050000 100%);cursor:pointer;transition:opacity .8s ease;overflow:hidden;}
 #tap-to-start .bg-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,215,0,0.08);top:50%;left:50%;transform:translate(-50%,-50%);animation:ringExpand 4s ease-in-out infinite;}
 #tap-to-start .bg-ring:nth-child(1){width:220px;height:220px;}
@@ -186,34 +187,34 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 #tap-to-start .bg-ring:nth-child(3){width:460px;height:460px;animation-delay:1.2s;}
 #tap-to-start .bg-ring:nth-child(4){width:580px;height:580px;animation-delay:1.8s;border-color:rgba(255,153,51,0.04);}
 @keyframes ringExpand{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.04);}}
-#tap-to-start .om-bg{position:absolute;font-size:clamp(180px,38vw,380px);color:rgba(255,215,0,0.03);top:50%;left:50%;transform:translate(-50%,-52%);font-family:'Noto Serif Devanagari',serif;animation:omGlow 6s ease-in-out infinite;pointer-events:none;}
+#tap-to-start .om-bg{position:absolute;font-size:clamp(140px,32vw,300px);color:rgba(255,215,0,0.03);top:50%;left:50%;transform:translate(-50%,-52%);font-family:'Noto Serif Devanagari',serif;animation:omGlow 6s ease-in-out infinite;pointer-events:none;}
 @keyframes omGlow{0%,100%{opacity:0.03;}50%{opacity:0.07;}}
-#tap-to-start .invite-label{text-align:center;margin-bottom:clamp(24px,4vw,44px);animation:riseIn .9s cubic-bezier(0.2,0.8,0.2,1) forwards;}
-#tap-to-start .event-name{font-size:clamp(22px,5vw,52px);font-weight:700;background:linear-gradient(100deg,#bf953f 0%,#fcf6ba 30%,#FFD700 55%,#fcf6ba 75%,#bf953f 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% auto;animation:shine 4s linear infinite;display:block;line-height:1.3;}
-#tap-to-start .event-sub{font-size:clamp(13px,2vw,20px);color:rgba(255,215,0,0.6);letter-spacing:3px;margin-top:8px;display:block;}
-#tap-to-start .event-place{font-size:clamp(11px,1.4vw,15px);color:rgba(255,200,120,0.45);letter-spacing:2px;margin-top:6px;display:block;}
+#tap-to-start .invite-label{text-align:center;margin-bottom:clamp(20px,3.5vw,36px);animation:riseIn .9s cubic-bezier(0.2,0.8,0.2,1) forwards;}
+#tap-to-start .event-name{font-size:clamp(20px,5.5vw,46px);font-weight:700;background:linear-gradient(100deg,#bf953f 0%,#fcf6ba 30%,#FFD700 55%,#fcf6ba 75%,#bf953f 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% auto;animation:shine 4s linear infinite;display:block;line-height:1.3;}
+#tap-to-start .event-sub{font-size:clamp(12px,3vw,18px);color:rgba(255,215,0,0.6);letter-spacing:2px;margin-top:6px;display:block;}
+#tap-to-start .event-place{font-size:clamp(10px,2.2vw,13px);color:rgba(255,200,120,0.45);letter-spacing:1.5px;margin-top:5px;display:block;}
 #tap-to-start .play-wrap{position:relative;display:flex;align-items:center;justify-content:center;}
 #tap-to-start .pulse-ring{position:absolute;border-radius:50%;border:2px solid rgba(255,215,0,0.25);animation:bigPulse 2.2s ease-out infinite;}
-#tap-to-start .pulse-ring:nth-child(1){width:160px;height:160px;}
-#tap-to-start .pulse-ring:nth-child(2){width:200px;height:200px;animation-delay:.55s;border-color:rgba(255,153,51,0.18);}
-#tap-to-start .pulse-ring:nth-child(3){width:244px;height:244px;animation-delay:1.1s;border-color:rgba(255,215,0,0.1);}
+#tap-to-start .pulse-ring:nth-child(1){width:140px;height:140px;}
+#tap-to-start .pulse-ring:nth-child(2){width:180px;height:180px;animation-delay:.55s;border-color:rgba(255,153,51,0.18);}
+#tap-to-start .pulse-ring:nth-child(3){width:220px;height:220px;animation-delay:1.1s;border-color:rgba(255,215,0,0.1);}
 @keyframes bigPulse{0%{opacity:1;transform:scale(0.82);}100%{opacity:0;transform:scale(1.3);}}
-#tap-to-start .play-btn{position:relative;width:clamp(110px,18vw,150px);height:clamp(110px,18vw,150px);border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,215,0,0.22),rgba(255,100,0,0.08) 60%,transparent);border:2.5px solid rgba(255,215,0,0.65);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(255,215,0,0.25),0 0 80px rgba(255,153,51,0.12),inset 0 1px 0 rgba(255,255,255,0.15);z-index:1;animation:playBtnGlow 3s ease-in-out infinite;}
+#tap-to-start .play-btn{position:relative;width:clamp(90px,16vw,130px);height:clamp(90px,16vw,130px);border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,215,0,0.22),rgba(255,100,0,0.08) 60%,transparent);border:2.5px solid rgba(255,215,0,0.65);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(255,215,0,0.25),0 0 80px rgba(255,153,51,0.12),inset 0 1px 0 rgba(255,255,255,0.15);z-index:1;animation:playBtnGlow 3s ease-in-out infinite;}
 @keyframes playBtnGlow{0%,100%{box-shadow:0 0 40px rgba(255,215,0,0.25),0 0 80px rgba(255,153,51,0.12);}50%{box-shadow:0 0 60px rgba(255,215,0,0.45),0 0 120px rgba(255,153,51,0.22);}}
-#tap-to-start .play-btn svg{width:clamp(44px,7vw,60px);height:clamp(44px,7vw,60px);margin-left:6%;filter:drop-shadow(0 0 12px rgba(255,215,0,0.6));}
-#tap-to-start .play-label{margin-top:clamp(20px,3.5vw,34px);text-align:center;animation:pulse 2.2s ease infinite;}
-#tap-to-start .play-label span{font-size:clamp(13px,1.8vw,18px);color:rgba(255,215,0,0.75);letter-spacing:3px;display:block;}
-#tap-to-start .play-label .hint{font-size:clamp(11px,1.3vw,14px);color:rgba(255,200,150,0.35);letter-spacing:2px;margin-top:8px;display:block;}
+#tap-to-start .play-btn svg{width:clamp(36px,6vw,52px);height:clamp(36px,6vw,52px);margin-left:6%;filter:drop-shadow(0 0 12px rgba(255,215,0,0.6));}
+#tap-to-start .play-label{margin-top:clamp(16px,3vw,28px);text-align:center;animation:pulse 2.2s ease infinite;}
+#tap-to-start .play-label span{font-size:clamp(12px,2.6vw,16px);color:rgba(255,215,0,0.75);letter-spacing:2px;display:block;}
+#tap-to-start .play-label .hint{font-size:clamp(10px,2vw,13px);color:rgba(255,200,150,0.35);letter-spacing:1.5px;margin-top:6px;display:block;}
 @keyframes pulse{0%,100%{opacity:0.55;}50%{opacity:1;}}
 
-/* TAP ARROWS */
 #tap-left,#tap-right{position:absolute;top:80px;bottom:50px;width:28%;z-index:15;display:flex;align-items:center;opacity:0;transition:opacity .3s;pointer-events:none;}
 #tap-left{left:0;justify-content:flex-start;padding-left:14px;}
 #tap-right{right:0;justify-content:flex-end;padding-right:14px;}
 #stage:hover #tap-left,#stage:hover #tap-right{opacity:1;}
 .tap-arrow{font-size:28px;color:rgba(255,215,0,0.2);}
-.sec-icon{font-size:clamp(26px,4vw,42px);display:block;margin-bottom:6px;animation:iconBounce 2s ease-in-out infinite;}
-@keyframes iconBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+/* inline row helpers */
+.inline-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px;line-height:1.8;}
 </style>
 </head>
 <body>
@@ -241,7 +242,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   </div>
   <div class="play-label">
     <span>स्पर्श करें और शुरू करें</span>
-    <span class="hint">संगीत सहित निमंत्रण · Tap to open</span>
+    <span class="hint">निमंत्रण खेलने के लिए टैप करें · Tap to play</span>
   </div>
 </div>
 
@@ -257,56 +258,59 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
 <div class="corner c-bl"><svg viewBox="0 0 28 28" fill="none"><path d="M2 26L2 2L26 2" stroke="rgba(255,215,0,0.5)" stroke-width="1.5" fill="none"/><circle cx="6" cy="6" r="2" fill="rgba(255,215,0,0.4)"/></svg></div>
 <div class="corner c-br"><svg viewBox="0 0 28 28" fill="none"><path d="M2 26L2 2L26 2" stroke="rgba(255,215,0,0.5)" stroke-width="1.5" fill="none"/><circle cx="6" cy="6" r="2" fill="rgba(255,215,0,0.4)"/></svg></div>
 <div class="frame-a"></div><div class="frame-b"></div>
-
+<div id="ganesh-img" style="
+  position: absolute; /* Recommended so it doesn't float over other pages */
+  top: 40px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  /* Balanced sizing: Minimum 80px, scales with 15% width, Maximum 110px */
+  width: clamp(80px, 15vw, 110px); 
+  height: clamp(80px, 15vw, 110px);
+  border-radius: 50%;
+  border: 2px solid rgba(255,215,0,0.6);
+  box-shadow: 0 0 15px rgba(255,180,0,0.4), 0 0 30px rgba(255,100,0,0.1);
+  overflow: hidden;
+  animation: ganeshGlow 3s ease-in-out infinite;
+  pointer-events: none;
+">
+  <img src="https://suneetsingh43-dot.github.io/invitation/lordganesh.jpg" 
+       style="width:100%;height:100%;object-fit:cover;" 
+       alt="श्री गणेश">
+</div>
 <div class="band"><div class="band-inner">
   <span class="band-txt">✦ ग्राम बौरा, पुपरी, सीतामढ़ी ✦ 20 अप्रैल — मड़वा ✦ 26 अप्रैल — पूजा ✦ 27 अप्रैल — उपनयन संस्कार ✦</span>
   <span class="band-txt">✦ ग्राम बौरा, पुपरी, सीतामढ़ी ✦ 20 अप्रैल — मड़वा ✦ 26 अप्रैल — पूजा ✦ 27 अप्रैल — उपनयन संस्कार ✦</span>
 </div></div>
 
-<div id="music-btn"><div id="note-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18V6l11-2v12" stroke="#FFD700" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="2.5" fill="#FFD700"/><circle cx="17" cy="16" r="2.5" fill="#FFD700"/></svg></div><div id="eq"><div class="eq-bar" style="height:8px"></div><div class="eq-bar" style="height:12px"></div><div class="eq-bar" style="height:6px"></div><div class="eq-bar" style="height:10px"></div></div></div>
+<div id="music-btn"><div id="note-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18V6l11-2v12" stroke="#FFD700" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="2.5" fill="#FFD700"/><circle cx="17" cy="16" r="2.5" fill="#FFD700"/></svg></div><div id="eq"><div class="eq-bar" style="height:8px"></div><div class="eq-bar" style="height:12px"></div><div class="eq-bar" style="height:6px"></div><div class="eq-bar" style="height:10px"></div></div></div>
 <div id="tap-left"><span class="tap-arrow">‹</span></div>
 <div id="tap-right"><span class="tap-arrow">›</span></div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- SLIDE 0 — Ganesh                                          -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 0 — Ganesh -->
 <div class="slide active" id="s0">
   <div class="ambient">
-    <!-- LEFT DIYA — tall detailed oil lamp -->
     <div class="diya-l">
-      <svg width="70" height="120" viewBox="0 0 70 120">
-        <!-- glow halo -->
+      <svg width="60" height="104" viewBox="0 0 70 120">
         <ellipse cx="35" cy="52" rx="32" ry="32" fill="rgba(255,180,0,0.05)"/>
-        <!-- flame glow -->
         <ellipse cx="35" cy="28" rx="18" ry="22" fill="rgba(255,160,0,0.07)"/>
-        <!-- outer flame -->
         <ellipse class="df" cx="35" cy="22" rx="8" ry="13" fill="rgba(255,150,0,0.82)"/>
-        <!-- mid flame -->
         <ellipse class="dfi" cx="35" cy="18" rx="4.5" ry="9" fill="rgba(255,220,60,0.92)"/>
-        <!-- core -->
         <ellipse cx="35" cy="14" rx="2.2" ry="5" fill="rgba(255,255,210,0.97)"/>
-        <!-- wick -->
         <path d="M35 35 Q36 28 35 22" stroke="rgba(160,80,0,0.7)" stroke-width="1.5" fill="none"/>
-        <!-- oil cup top -->
         <ellipse cx="35" cy="36" rx="12" ry="5" fill="rgba(255,210,70,0.22)" stroke="rgba(255,215,0,0.5)" stroke-width="1"/>
-        <!-- neck -->
         <rect x="29" y="36" width="12" height="18" rx="3" fill="rgba(190,90,0,0.5)" stroke="rgba(255,215,0,0.4)" stroke-width="0.8"/>
-        <!-- body bulge -->
         <ellipse cx="35" cy="62" rx="18" ry="14" fill="rgba(180,75,0,0.5)" stroke="rgba(255,215,0,0.35)" stroke-width="0.8"/>
-        <!-- base plate -->
         <ellipse cx="35" cy="100" rx="24" ry="9" fill="rgba(160,65,0,0.55)" stroke="rgba(255,215,0,0.4)" stroke-width="1"/>
-        <!-- stem -->
         <rect x="32" y="76" width="6" height="24" rx="2" fill="rgba(170,70,0,0.5)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
-        <!-- body decorations -->
         <circle cx="28" cy="62" r="2.5" fill="rgba(255,215,0,0.3)"/>
-        <circle cx="35" cy="58" r="2"   fill="rgba(255,215,0,0.25)"/>
+        <circle cx="35" cy="58" r="2" fill="rgba(255,215,0,0.25)"/>
         <circle cx="42" cy="62" r="2.5" fill="rgba(255,215,0,0.3)"/>
         <path d="M25 70 Q35 75 45 70" stroke="rgba(255,215,0,0.2)" stroke-width="0.8" fill="none"/>
       </svg>
     </div>
-    <!-- RIGHT DIYA -->
     <div class="diya-r">
-      <svg width="70" height="120" viewBox="0 0 70 120">
+      <svg width="60" height="104" viewBox="0 0 70 120">
         <ellipse cx="35" cy="52" rx="32" ry="32" fill="rgba(255,180,0,0.05)"/>
         <ellipse cx="35" cy="28" rx="18" ry="22" fill="rgba(255,160,0,0.07)"/>
         <ellipse class="df" cx="35" cy="22" rx="8" ry="13" fill="rgba(255,150,0,0.82)" style="animation-delay:-.5s"/>
@@ -319,14 +323,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
         <ellipse cx="35" cy="100" rx="24" ry="9" fill="rgba(160,65,0,0.55)" stroke="rgba(255,215,0,0.4)" stroke-width="1"/>
         <rect x="32" y="76" width="6" height="24" rx="2" fill="rgba(170,70,0,0.5)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
         <circle cx="28" cy="62" r="2.5" fill="rgba(255,215,0,0.3)"/>
-        <circle cx="35" cy="58" r="2"   fill="rgba(255,215,0,0.25)"/>
+        <circle cx="35" cy="58" r="2" fill="rgba(255,215,0,0.25)"/>
         <circle cx="42" cy="62" r="2.5" fill="rgba(255,215,0,0.3)"/>
         <path d="M25 70 Q35 75 45 70" stroke="rgba(255,215,0,0.2)" stroke-width="0.8" fill="none"/>
       </svg>
     </div>
-    <!-- TOP-LEFT LOTUS -->
     <div class="lotus-tl">
-      <svg width="72" height="72" viewBox="0 0 72 72" opacity="0.18">
+      <svg width="60" height="60" viewBox="0 0 72 72" opacity="0.18">
         <g transform="translate(36,44)">
           <ellipse rx="8" ry="20" fill="#FF9933" transform="rotate(-45)"/>
           <ellipse rx="8" ry="20" fill="#FFD700" transform="rotate(-22)"/>
@@ -337,9 +340,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
         </g>
       </svg>
     </div>
-    <!-- TOP-RIGHT LOTUS -->
     <div class="lotus-tr">
-      <svg width="72" height="72" viewBox="0 0 72 72" opacity="0.18">
+      <svg width="60" height="60" viewBox="0 0 72 72" opacity="0.18">
         <g transform="translate(36,44)">
           <ellipse rx="8" ry="20" fill="#FF9933" transform="rotate(-45)"/>
           <ellipse rx="8" ry="20" fill="#FFD700" transform="rotate(-22)"/>
@@ -350,48 +352,43 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
         </g>
       </svg>
     </div>
-    <!-- BOTTOM RANGOLI dots -->
-    <svg style="position:absolute;bottom:42px;left:50%;transform:translateX(-50%)" width="200" height="40" viewBox="0 0 200 40">
+    <svg style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%)" width="180" height="36" viewBox="0 0 200 40">
       <circle cx="100" cy="20" r="5" fill="rgba(255,215,0,0.25)"/>
-      <circle cx="80"  cy="20" r="4" fill="rgba(255,153,51,0.2)"/>
+      <circle cx="80" cy="20" r="4" fill="rgba(255,153,51,0.2)"/>
       <circle cx="120" cy="20" r="4" fill="rgba(255,153,51,0.2)"/>
-      <circle cx="60"  cy="20" r="3" fill="rgba(255,215,0,0.15)"/>
+      <circle cx="60" cy="20" r="3" fill="rgba(255,215,0,0.15)"/>
       <circle cx="140" cy="20" r="3" fill="rgba(255,215,0,0.15)"/>
-      <circle cx="100" cy="8"  r="3" fill="rgba(255,153,51,0.2)"/>
+      <circle cx="100" cy="8" r="3" fill="rgba(255,153,51,0.2)"/>
       <circle cx="100" cy="32" r="3" fill="rgba(255,153,51,0.2)"/>
     </svg>
   </div>
 
-  <div class="t-om r1">ॐ</div>
-  <h2 class="t-ganesh shimmer r2">॥ श्री गणेशाय नमः ॥</h2>
+  <span class="t-om r1">ॐ</span>
+  <span class="t-ganesh shimmer r2">॥ श्री गणेशाय नमः ॥</span>
   <div class="divider r3"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
   <div class="glass r4" style="border:none;background:transparent;box-shadow:none;">
-    <p class="t-shloka bi">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</p>
+    <span class="t-shloka bi">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</span>
   </div>
   <div class="divider r5"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- SLIDE 1 — Parents                                          -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1 — Parents -->
 <div class="slide" id="s1">
   <div class="ambient">
-    <!-- MARIGOLD GARLAND TOP -->
     <div class="garland-top">
       <svg width="min(88vw,680px)" height="58" viewBox="0 0 680 58" preserveAspectRatio="none">
         <path d="M0,10 Q170,50 340,10 Q510,50 680,10" stroke="rgba(255,153,51,0.28)" stroke-width="2" fill="none" stroke-dasharray="7 5"/>
-        <circle cx="68"  cy="31" r="10" fill="rgba(255,120,0,0.22)" stroke="rgba(255,215,0,0.2)" stroke-width="0.8"/><circle cx="68"  cy="31" r="5" fill="rgba(255,170,0,0.28)"/>
-        <circle cx="170" cy="50" r="10" fill="rgba(255,80,0,0.18)"  stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="170" cy="50" r="5" fill="rgba(255,140,0,0.22)"/>
+        <circle cx="68" cy="31" r="10" fill="rgba(255,120,0,0.22)" stroke="rgba(255,215,0,0.2)" stroke-width="0.8"/><circle cx="68" cy="31" r="5" fill="rgba(255,170,0,0.28)"/>
+        <circle cx="170" cy="50" r="10" fill="rgba(255,80,0,0.18)" stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="170" cy="50" r="5" fill="rgba(255,140,0,0.22)"/>
         <circle cx="272" cy="24" r="10" fill="rgba(255,120,0,0.22)" stroke="rgba(255,215,0,0.2)" stroke-width="0.8"/><circle cx="272" cy="24" r="5" fill="rgba(255,190,0,0.28)"/>
-        <circle cx="340" cy="10" r="10" fill="rgba(255,80,0,0.18)"  stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="340" cy="10" r="5" fill="rgba(255,140,0,0.22)"/>
+        <circle cx="340" cy="10" r="10" fill="rgba(255,80,0,0.18)" stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="340" cy="10" r="5" fill="rgba(255,140,0,0.22)"/>
         <circle cx="408" cy="24" r="10" fill="rgba(255,120,0,0.22)" stroke="rgba(255,215,0,0.2)" stroke-width="0.8"/><circle cx="408" cy="24" r="5" fill="rgba(255,180,0,0.28)"/>
-        <circle cx="510" cy="50" r="10" fill="rgba(255,80,0,0.18)"  stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="510" cy="50" r="5" fill="rgba(255,140,0,0.22)"/>
+        <circle cx="510" cy="50" r="10" fill="rgba(255,80,0,0.18)" stroke="rgba(255,215,0,0.18)" stroke-width="0.8"/><circle cx="510" cy="50" r="5" fill="rgba(255,140,0,0.22)"/>
         <circle cx="612" cy="31" r="10" fill="rgba(255,120,0,0.22)" stroke="rgba(255,215,0,0.2)" stroke-width="0.8"/><circle cx="612" cy="31" r="5" fill="rgba(255,170,0,0.28)"/>
       </svg>
     </div>
-    <!-- BOTTOM-LEFT LOTUS -->
     <div class="pl-bl">
-      <svg width="82" height="82" viewBox="0 0 82 82" opacity="0.16">
+      <svg width="70" height="70" viewBox="0 0 82 82" opacity="0.16">
         <g transform="translate(41,52)">
           <ellipse rx="9" ry="23" fill="#FF9933" transform="rotate(-50)"/>
           <ellipse rx="9" ry="23" fill="#FFD700" transform="rotate(-25)"/>
@@ -402,9 +399,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
         </g>
       </svg>
     </div>
-    <!-- BOTTOM-RIGHT LOTUS -->
     <div class="pl-br">
-      <svg width="82" height="82" viewBox="0 0 82 82" opacity="0.16">
+      <svg width="70" height="70" viewBox="0 0 82 82" opacity="0.16">
         <g transform="translate(41,52)">
           <ellipse rx="9" ry="23" fill="#FF9933" transform="rotate(-50)"/>
           <ellipse rx="9" ry="23" fill="#FFD700" transform="rotate(-25)"/>
@@ -415,141 +411,118 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
         </g>
       </svg>
     </div>
-    <!-- LEFT SIDE: stacked small diyas -->
-    <svg style="position:absolute;left:3vw;top:50%;transform:translateY(-45%);animation:diyaFloat 3s ease-in-out infinite" width="38" height="62" viewBox="0 0 38 62">
+    <svg style="position:absolute;left:2vw;top:50%;transform:translateY(-45%);animation:diyaFloat 3s ease-in-out infinite" width="34" height="56" viewBox="0 0 38 62">
       <ellipse cx="19" cy="48" rx="14" ry="6" fill="rgba(170,70,0,0.45)" stroke="rgba(255,215,0,0.35)" stroke-width="0.8"/>
       <path d="M9 48 Q7 34 13 26 Q19 22 25 26 Q31 34 29 48Z" fill="rgba(180,80,0,0.45)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
       <ellipse class="df" cx="19" cy="16" rx="5" ry="9" fill="rgba(255,150,0,0.8)" style="animation-delay:-.4s"/>
       <ellipse cx="19" cy="12" rx="2.5" ry="5" fill="rgba(255,230,70,0.9)"/>
       <circle cx="19" cy="10" r="1.5" fill="rgba(255,255,210,0.95)"/>
     </svg>
-    <!-- RIGHT SIDE: stacked small diyas -->
-    <svg style="position:absolute;right:3vw;top:50%;transform:translateY(-45%);animation:diyaFloat 3s ease-in-out infinite;animation-delay:-.8s" width="38" height="62" viewBox="0 0 38 62">
+    <svg style="position:absolute;right:2vw;top:50%;transform:translateY(-45%);animation:diyaFloat 3s ease-in-out infinite;animation-delay:-.8s" width="34" height="56" viewBox="0 0 38 62">
       <ellipse cx="19" cy="48" rx="14" ry="6" fill="rgba(170,70,0,0.45)" stroke="rgba(255,215,0,0.35)" stroke-width="0.8"/>
       <path d="M9 48 Q7 34 13 26 Q19 22 25 26 Q31 34 29 48Z" fill="rgba(180,80,0,0.45)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
       <ellipse class="df" cx="19" cy="16" rx="5" ry="9" fill="rgba(255,150,0,0.8)" style="animation-delay:-.7s"/>
       <ellipse cx="19" cy="12" rx="2.5" ry="5" fill="rgba(255,230,70,0.9)"/>
       <circle cx="19" cy="10" r="1.5" fill="rgba(255,255,210,0.95)"/>
     </svg>
-    <!-- FLOATING BLESSING DOTS -->
     <div id="bless-c"></div>
   </div>
 
-  <p class="t-intro r1">🙏 मान्यवर, माँ भगवती की असीम अनुकम्पा से</p>
+  <span class="t-intro r1" style="font-size: clamp(16px, 4vw, 30px); color: #D4AF37; display: block;">🙏 मान्यवर, माँ भगवती की असीम अनुकम्पा से</span>
   <div class="divider r2"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
-  <div class="glass r3" style="width:min(90%,500px);">
-    <h1 class="t-parents shimmer">श्री सुमीत कुमार सिंह</h1>
-    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:10px 0;">
-      <div style="height:1px;width:40px;background:rgba(255,215,0,0.3)"></div>
-      <span style="color:var(--gold);font-size:14px;opacity:.8">एवं</span>
-      <div style="height:1px;width:40px;background:rgba(255,215,0,0.3)"></div>
+  <div class="glass r3" style="width:min(90%,480px);">
+    <span class="t-parents shimmer">श्री सुमीत कुमार सिंह</span>
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0;">
+      <div style="height:1px;width:36px;background:rgba(255,215,0,0.3)"></div>
+      <span style="color:var(--gold);font-size:13px;opacity:.8">एवं</span>
+      <div style="height:1px;width:36px;background:rgba(255,215,0,0.3)"></div>
     </div>
-    <h1 class="t-parents shimmer">श्रीमती ज्योती सिंह</h1>
+    <span class="t-parents shimmer">श्रीमती ज्योती सिंह</span>
   </div>
-  <p class="t-sub r4">आपको सपरिवार सादर आमंत्रित करते हैं</p>
+  <span class="t-sub r4" style="font-size: 34px; color: #D4AF37;">आपको सपरिवार सादर आमंत्रित करते हैं</span>
   <div class="divider r5"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- SLIDE 2 — Boy Name                                         -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2 — Boy Name -->
 <div class="slide" id="s2">
   <div class="ambient">
-    <!-- SACRED THREAD arcs left -->
     <svg style="position:absolute;left:0;top:0;width:20%;height:100%;overflow:visible" viewBox="0 0 140 600" preserveAspectRatio="none">
-      <path d="M120,60 Q10,140 120,220 Q10,300 120,380 Q10,460 120,540"
-        fill="none" stroke="rgba(255,215,0,0.18)" stroke-width="2" stroke-dasharray="9 6"
-        style="stroke-dashoffset:700;animation:threadDraw 3.5s linear forwards 0.4s"/>
-      <circle cx="120" cy="60"  r="6" fill="rgba(255,215,0,0.22)"/>
+      <path d="M120,60 Q10,140 120,220 Q10,300 120,380 Q10,460 120,540" fill="none" stroke="rgba(255,215,0,0.18)" stroke-width="2" stroke-dasharray="9 6" style="stroke-dashoffset:700;animation:threadDraw 3.5s linear forwards 0.4s"/>
+      <circle cx="120" cy="60" r="6" fill="rgba(255,215,0,0.22)"/>
       <circle cx="120" cy="220" r="6" fill="rgba(255,153,51,0.22)"/>
       <circle cx="120" cy="380" r="6" fill="rgba(255,215,0,0.22)"/>
       <circle cx="120" cy="540" r="6" fill="rgba(255,153,51,0.22)"/>
-      <circle cx="10"  cy="140" r="4" fill="rgba(255,215,0,0.15)"/>
-      <circle cx="10"  cy="300" r="4" fill="rgba(255,153,51,0.15)"/>
-      <circle cx="10"  cy="460" r="4" fill="rgba(255,215,0,0.15)"/>
+      <circle cx="10" cy="140" r="4" fill="rgba(255,215,0,0.15)"/>
+      <circle cx="10" cy="300" r="4" fill="rgba(255,153,51,0.15)"/>
+      <circle cx="10" cy="460" r="4" fill="rgba(255,215,0,0.15)"/>
     </svg>
-    <!-- SACRED THREAD arcs right -->
     <svg style="position:absolute;right:0;top:0;width:20%;height:100%;overflow:visible" viewBox="0 0 140 600" preserveAspectRatio="none">
-      <path d="M20,60 Q130,140 20,220 Q130,300 20,380 Q130,460 20,540"
-        fill="none" stroke="rgba(255,215,0,0.18)" stroke-width="2" stroke-dasharray="9 6"
-        style="stroke-dashoffset:700;animation:threadDraw 3.5s linear forwards 0.4s"/>
-      <circle cx="20"  cy="60"  r="6" fill="rgba(255,215,0,0.22)"/>
-      <circle cx="20"  cy="220" r="6" fill="rgba(255,153,51,0.22)"/>
-      <circle cx="20"  cy="380" r="6" fill="rgba(255,215,0,0.22)"/>
-      <circle cx="20"  cy="540" r="6" fill="rgba(255,153,51,0.22)"/>
+      <path d="M20,60 Q130,140 20,220 Q130,300 20,380 Q130,460 20,540" fill="none" stroke="rgba(255,215,0,0.18)" stroke-width="2" stroke-dasharray="9 6" style="stroke-dashoffset:700;animation:threadDraw 3.5s linear forwards 0.4s"/>
+      <circle cx="20" cy="60" r="6" fill="rgba(255,215,0,0.22)"/>
+      <circle cx="20" cy="220" r="6" fill="rgba(255,153,51,0.22)"/>
+      <circle cx="20" cy="380" r="6" fill="rgba(255,215,0,0.22)"/>
+      <circle cx="20" cy="540" r="6" fill="rgba(255,153,51,0.22)"/>
       <circle cx="130" cy="140" r="4" fill="rgba(255,215,0,0.15)"/>
       <circle cx="130" cy="300" r="4" fill="rgba(255,153,51,0.15)"/>
       <circle cx="130" cy="460" r="4" fill="rgba(255,215,0,0.15)"/>
     </svg>
-    <!-- HAVAN KUND bottom centre -->
-    <svg style="position:absolute;bottom:44px;left:50%;transform:translateX(-50%)" width="100" height="56" viewBox="0 0 100 56">
+    <svg style="position:absolute;bottom:44px;left:50%;transform:translateX(-50%)" width="90" height="50" viewBox="0 0 100 56">
       <polygon points="6,56 94,56 78,22 50,6 22,22" fill="rgba(180,65,0,0.22)" stroke="rgba(255,215,0,0.28)" stroke-width="1"/>
       <polygon points="18,56 82,56 68,28 50,16 32,28" fill="rgba(150,55,0,0.18)"/>
       <line x1="50" y1="56" x2="50" y2="16" stroke="rgba(255,215,0,0.12)" stroke-width="0.8"/>
       <line x1="18" y1="56" x2="82" y2="56" stroke="rgba(255,215,0,0.22)" stroke-width="1"/>
-      <!-- firewood -->
       <line x1="28" y1="52" x2="72" y2="52" stroke="rgba(120,50,0,0.5)" stroke-width="2.5" stroke-linecap="round"/>
       <line x1="34" y1="48" x2="66" y2="48" stroke="rgba(100,40,0,0.4)" stroke-width="2" stroke-linecap="round"/>
     </svg>
-    <!-- SMOKE PUFFS -->
     <div class="smoke-puff sp1"></div>
     <div class="smoke-puff sp2"></div>
     <div class="smoke-puff sp3"></div>
-    <!-- STARS top corners -->
-    <div class="cal-star" style="left:6%;top:90px"><svg width="20" height="20" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.55)"/></svg></div>
-    <div class="cal-star" style="right:6%;top:96px;animation-delay:-1.4s"><svg width="16" height="16" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.5)"/></svg></div>
-    <div class="cal-star" style="left:12%;bottom:88px;animation-delay:-2.2s"><svg width="13" height="13" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.4)"/></svg></div>
-    <div class="cal-star" style="right:10%;bottom:82px;animation-delay:-0.7s"><svg width="17" height="17" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.45)"/></svg></div>
+    <div class="cal-star" style="left:6%;top:90px"><svg width="18" height="18" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.55)"/></svg></div>
+    <div class="cal-star" style="right:6%;top:96px;animation-delay:-1.4s"><svg width="14" height="14" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.5)"/></svg></div>
+    <div class="cal-star" style="left:12%;bottom:88px;animation-delay:-2.2s"><svg width="12" height="12" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.4)"/></svg></div>
+    <div class="cal-star" style="right:10%;bottom:82px;animation-delay:-0.7s"><svg width="15" height="15" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.45)"/></svg></div>
   </div>
 
-  <p class="r1" style="font-size:clamp(15px,2.4vw,22px);color:var(--saffron);letter-spacing:2px;">🚩 शुभ उपनयन संस्कार 🚩</p>
+  <span class="r1" style="font-size:clamp(13px,3.5vw,20px);color:var(--saffron);letter-spacing:2px;display:block;">🚩 शुभ उपनयन संस्कार 🚩</span>
   <div class="divider r2"><div class="dl r"></div><div class="dd"></div><div class="dl"></div></div>
-  <div class="glass sc" style="width:min(92%,640px);padding:32px 40px;margin:10px 0;">
-    <h1 class="name-glow shimmer">चि॰ योगित कुमार</h1>
+  <div class="glass sc" style="width:min(92%,600px);padding:26px 32px;margin:8px 0;">
+    <span class="name-glow shimmer">चि॰ योगित कुमार</span>
   </div>
-  <p class="t-bsub r4" style="margin-top:14px;">
-    सुपौत्र — <span class="ancestor">स्व॰ श्री रामाशंकर प्रसाद सिंह एवं श्रीमती मंजू सिंह</span>
-  </p>
-  <p class="r5" style="margin-top:14px;color:var(--gold);font-size:clamp(13px,1.6vw,17px);">✨ कृपया पधार कर आशीर्वाद प्रदान करें ✨</p>
+  <span class="t-bsub r4" style="margin-top:12px;">
+<span style="font-size: 2rem; font-weight: 600; color: var(--gold-pale);">सुपौत्र —</span>
+<span class="ancestor">स्व॰ श्री रामाशंकर प्रसाद सिंह एवं श्रीमती मंजू सिंह</span>
+  </span>
+  <span class="r5" style="margin-top:12px;color:var(--gold);font-size:clamp(12px,2.8vw,32px);display:block;">✨ कृपया पधार कर आशीर्वाद प्रदान करें ✨</span>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- SLIDE 3 — Schedule                                         -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3 — Schedule -->
 <div class="slide" id="s3">
   <div class="ambient">
-    <!-- STAR FIELD both sides -->
-    <div class="cal-star" style="left:5%;top:98px;animation-delay:0s"><svg width="22" height="22" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.52)"/></svg></div>
-    <div class="cal-star" style="left:9%;top:52%;animation-delay:-1.1s"><svg width="14" height="14" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,180,0,0.45)"/></svg></div>
-    <div class="cal-star" style="left:6%;bottom:95px;animation-delay:-2.1s"><svg width="18" height="18" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.5)"/></svg></div>
-    <div class="cal-star" style="right:5%;top:106px;animation-delay:-0.6s"><svg width="20" height="20" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.5)"/></svg></div>
-    <div class="cal-star" style="right:8%;top:48%;animation-delay:-1.9s"><svg width="13" height="13" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,180,0,0.42)"/></svg></div>
-    <div class="cal-star" style="right:6%;bottom:88px;animation-delay:-2.6s"><svg width="16" height="16" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.48)"/></svg></div>
-    <!-- Extra mid stars -->
-    <div class="cal-star" style="left:3%;top:35%;animation-delay:-0.4s"><svg width="10" height="10" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.35)"/></svg></div>
-    <div class="cal-star" style="right:3%;top:68%;animation-delay:-1.5s"><svg width="10" height="10" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.35)"/></svg></div>
-    <!-- LEFT floating diya -->
-    <svg style="position:absolute;left:3vw;top:50%;transform:translateY(-50%);animation:diyaFloat 4s ease-in-out infinite" width="46" height="82" viewBox="0 0 46 82">
+    <div class="cal-star" style="left:5%;top:98px;animation-delay:0s"><svg width="20" height="20" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.52)"/></svg></div>
+    <div class="cal-star" style="left:9%;top:52%;animation-delay:-1.1s"><svg width="13" height="13" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,180,0,0.45)"/></svg></div>
+    <div class="cal-star" style="left:6%;bottom:95px;animation-delay:-2.1s"><svg width="16" height="16" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.5)"/></svg></div>
+    <div class="cal-star" style="right:5%;top:106px;animation-delay:-0.6s"><svg width="18" height="18" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,215,0,0.5)"/></svg></div>
+    <div class="cal-star" style="right:8%;top:48%;animation-delay:-1.9s"><svg width="12" height="12" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,180,0,0.42)"/></svg></div>
+    <div class="cal-star" style="right:6%;bottom:88px;animation-delay:-2.6s"><svg width="14" height="14" viewBox="0 0 18 18"><polygon points="9,1 11,7 17,7 12,11 14,17 9,13 4,17 6,11 1,7 7,7" fill="rgba(255,153,51,0.48)"/></svg></div>
+    <svg style="position:absolute;left:2vw;top:50%;transform:translateY(-50%);animation:diyaFloat 4s ease-in-out infinite" width="40" height="72" viewBox="0 0 46 82">
       <ellipse cx="23" cy="68" rx="18" ry="7" fill="rgba(170,70,0,0.44)" stroke="rgba(255,215,0,0.35)" stroke-width="0.8"/>
       <path d="M11 68 Q9 48 16 38 Q23 33 30 38 Q37 48 35 68Z" fill="rgba(180,80,0,0.44)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
       <ellipse class="df" cx="23" cy="24" rx="6" ry="10" fill="rgba(255,150,0,0.8)" style="animation-delay:-.3s"/>
       <ellipse cx="23" cy="20" rx="3" ry="6" fill="rgba(255,230,70,0.9)"/>
       <circle cx="23" cy="18" r="1.8" fill="rgba(255,255,210,0.95)"/>
     </svg>
-    <!-- RIGHT floating diya -->
-    <svg style="position:absolute;right:3vw;top:50%;transform:translateY(-50%);animation:diyaFloat 4s ease-in-out infinite;animation-delay:-.9s" width="46" height="82" viewBox="0 0 46 82">
+    <svg style="position:absolute;right:2vw;top:50%;transform:translateY(-50%);animation:diyaFloat 4s ease-in-out infinite;animation-delay:-.9s" width="40" height="72" viewBox="0 0 46 82">
       <ellipse cx="23" cy="68" rx="18" ry="7" fill="rgba(170,70,0,0.44)" stroke="rgba(255,215,0,0.35)" stroke-width="0.8"/>
       <path d="M11 68 Q9 48 16 38 Q23 33 30 38 Q37 48 35 68Z" fill="rgba(180,80,0,0.44)" stroke="rgba(255,215,0,0.3)" stroke-width="0.8"/>
       <ellipse class="df" cx="23" cy="24" rx="6" ry="10" fill="rgba(255,150,0,0.8)" style="animation-delay:-.7s"/>
       <ellipse cx="23" cy="20" rx="3" ry="6" fill="rgba(255,230,70,0.9)"/>
       <circle cx="23" cy="18" r="1.8" fill="rgba(255,255,210,0.95)"/>
     </svg>
-    <!-- HOURGLASS right corner -->
-    <div class="hg-wrap" style="right:3vw;bottom:90px">
-      <svg width="38" height="62" viewBox="0 0 38 62" style="animation:hourGlassSpin 5s ease-in-out infinite">
+    <div class="hg-wrap" style="right:2vw;bottom:86px">
+      <svg width="34" height="56" viewBox="0 0 38 62" style="animation:hourGlassSpin 5s ease-in-out infinite">
         <polygon points="4,2 34,2 26,29 34,60 4,60 12,29" fill="rgba(255,215,0,0.1)" stroke="rgba(255,215,0,0.38)" stroke-width="1.2"/>
-        <line x1="4"  y1="2"  x2="34" y2="2"  stroke="rgba(255,215,0,0.48)" stroke-width="1.5"/>
-        <line x1="4"  y1="60" x2="34" y2="60" stroke="rgba(255,215,0,0.48)" stroke-width="1.5"/>
+        <line x1="4" y1="2" x2="34" y2="2" stroke="rgba(255,215,0,0.48)" stroke-width="1.5"/>
+        <line x1="4" y1="60" x2="34" y2="60" stroke="rgba(255,215,0,0.48)" stroke-width="1.5"/>
         <ellipse cx="19" cy="50" rx="8" ry="4" fill="rgba(255,215,0,0.22)"/>
         <ellipse cx="19" cy="12" rx="6" ry="3" fill="rgba(255,215,0,0.12)"/>
         <path d="M12,29 Q19,25 26,29" stroke="rgba(255,215,0,0.25)" stroke-width="0.8" fill="none"/>
@@ -558,68 +531,44 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   </div>
 
   <span class="sec-icon r1">📅</span>
-  <h2 class="shimmer r2" style="letter-spacing:2px;font-size:clamp(18px,2.8vw,30px)">कार्यक्रम विवरण</h2>
-  <div class="glass r3" style="width:min(100%,440px);text-align:left;padding:8px 24px">
-    <div class="sched-item"><p class="sched-date">सोमवार, 20 अप्रैल 2026</p><p class="sched-evt">मड़वा एवं प्रीतिभोज — सायं 7 बजे से</p></div>
-    <div class="sched-item"><p class="sched-date">रविवार, 26 अप्रैल 2026</p><p class="sched-evt">पूजा एवं मटकोर</p></div>
-    <div class="sched-item"><p class="sched-date">सोमवार, 27 अप्रैल 2026</p><p class="sched-evt">उपनयन संस्कार एवं प्रीतिभोज — सायं 7 बजे से</p></div>
+  <span class="slide-h2 shimmer r2">कार्यक्रम विवरण</span>
+  <div class="glass r3" style="width:min(100%,420px);text-align:left;padding:6px 20px">
+    <div class="sched-item"><span class="sched-date">सोमवार, 20 अप्रैल 2026</span><span class="sched-evt">मड़वा एवं प्रीतिभोज — सायं 7 बजे से</span></div>
+    <div class="sched-item"><span class="sched-date">रविवार, 26 अप्रैल 2026</span><span class="sched-evt">पूजा एवं मटकोर</span></div>
+    <div class="sched-item"><span class="sched-date">सोमवार, 27 अप्रैल 2026</span><span class="sched-evt">उपनयन संस्कार एवं प्रीतिभोज — सायं 7 बजे से</span></div>
   </div>
   <a class="btn r4" href="https://www.google.com/calendar/render?action=TEMPLATE&text=चि॰+योगित+कुमार+उपनयन+संस्कार&dates=20260427T133000Z/20260427T173000Z&details=आप+सपरिवार+आमंत्रित+हैं।&location=Baura,Pupri,Sitamarhi,Bihar" target="_blank">📅 Google Calendar में जोड़ें</a>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- SLIDE 4 — Venue                                            -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4 — Venue -->
 <div class="slide" id="s4">
   <div class="ambient">
-    <!-- VILLAGE SILHOUETTE bottom -->
-    <svg style="position:absolute;bottom:40px;left:0;width:100%;height:78px" viewBox="0 0 800 78" preserveAspectRatio="none">
-      <circle cx="80"  cy="12" r="1.5" fill="rgba(255,215,0,0.35)"/>
-      <circle cx="210" cy="7"  r="1"   fill="rgba(255,215,0,0.28)"/>
+    <svg style="position:absolute;bottom:38px;left:0;width:100%;height:70px" viewBox="0 0 800 78" preserveAspectRatio="none">
+      <circle cx="80" cy="12" r="1.5" fill="rgba(255,215,0,0.35)"/>
+      <circle cx="210" cy="7" r="1" fill="rgba(255,215,0,0.28)"/>
       <circle cx="380" cy="14" r="1.5" fill="rgba(255,215,0,0.35)"/>
-      <circle cx="560" cy="6"  r="1"   fill="rgba(255,215,0,0.28)"/>
+      <circle cx="560" cy="6" r="1" fill="rgba(255,215,0,0.28)"/>
       <circle cx="710" cy="11" r="1.5" fill="rgba(255,215,0,0.35)"/>
-      <path d="M0,78 L0,56 L30,56 L30,44 L58,44 L58,56 L90,56
-               L110,56 L110,40 L128,30 L146,40 L146,56 L178,56 L178,50 L196,36 L214,50 L214,56
-               L250,56 L250,46 L275,46 L275,56 L295,56
-               L295,38 L312,24 L330,38 L330,56
-               L368,56 L368,46 L394,46 L394,56
-               L418,56 L418,42 L436,30 L454,42 L454,56
-               L496,56 L496,50 L512,36 L528,50 L528,56
-               L560,56 L560,46 L585,46 L585,56 L610,56
-               L610,40 L626,28 L642,40 L642,56
-               L678,56 L678,48 L696,36 L712,48 L712,56
-               L752,56 L752,46 L770,36 L788,46 L800,46 L800,78 Z"
-        fill="rgba(255,120,30,0.07)" stroke="rgba(255,215,0,0.1)" stroke-width="0.8"/>
-      <!-- road -->
+      <path d="M0,78 L0,56 L30,56 L30,44 L58,44 L58,56 L90,56 L110,56 L110,40 L128,30 L146,40 L146,56 L178,56 L178,50 L196,36 L214,50 L214,56 L250,56 L250,46 L275,46 L275,56 L295,56 L295,38 L312,24 L330,38 L330,56 L368,56 L368,46 L394,46 L394,56 L418,56 L418,42 L436,30 L454,42 L454,56 L496,56 L496,50 L512,36 L528,50 L528,56 L560,56 L560,46 L585,46 L585,56 L610,56 L610,40 L626,28 L642,40 L642,56 L678,56 L678,48 L696,36 L712,48 L712,56 L752,56 L752,46 L770,36 L788,46 L800,46 L800,78 Z" fill="rgba(255,120,30,0.07)" stroke="rgba(255,215,0,0.1)" stroke-width="0.8"/>
       <path d="M0,70 Q200,64 400,70 Q600,76 800,70" fill="none" stroke="rgba(255,215,0,0.14)" stroke-width="1.5" stroke-dasharray="12 8"/>
     </svg>
-    <!-- ROAD LINES left -->
     <svg style="position:absolute;left:0;top:0;width:18%;height:100%" viewBox="0 0 120 700" preserveAspectRatio="none">
       <path d="M100,50 Q20,200 80,400 Q20,550 60,680" fill="none" stroke="rgba(255,215,0,0.09)" stroke-width="2" stroke-dasharray="8 6" style="stroke-dashoffset:400;animation:roadDraw 3.5s linear forwards 0.5s"/>
-      <path d="M60,80 Q100,250 40,440 Q90,600 50,680" fill="none" stroke="rgba(255,153,51,0.07)" stroke-width="1.5" stroke-dasharray="6 7" style="stroke-dashoffset:400;animation:roadDraw 3.5s linear forwards 1s"/>
     </svg>
-    <!-- ROAD LINES right (flipped) -->
     <svg style="position:absolute;right:0;top:0;width:18%;height:100%;transform:scaleX(-1)" viewBox="0 0 120 700" preserveAspectRatio="none">
       <path d="M100,50 Q20,200 80,400 Q20,550 60,680" fill="none" stroke="rgba(255,215,0,0.09)" stroke-width="2" stroke-dasharray="8 6" style="stroke-dashoffset:400;animation:roadDraw 3.5s linear forwards 0.5s"/>
-      <path d="M60,80 Q100,250 40,440 Q90,600 50,680" fill="none" stroke="rgba(255,153,51,0.07)" stroke-width="1.5" stroke-dasharray="6 7" style="stroke-dashoffset:400;animation:roadDraw 3.5s linear forwards 1s"/>
     </svg>
-    <!-- MAP PINS -->
     <div class="map-pin" style="left:7%;top:36%;animation-delay:0s">
-      <svg width="28" height="38" viewBox="0 0 28 38"><path d="M14,2 A12,12 0 0,1 26,14 C26,22 14,36 14,36 C14,36 2,22 2,14 A12,12 0 0,1 14,2Z" fill="rgba(255,90,20,0.3)" stroke="rgba(255,215,0,0.5)" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="rgba(255,215,0,0.55)"/></svg>
+      <svg width="24" height="32" viewBox="0 0 28 38"><path d="M14,2 A12,12 0 0,1 26,14 C26,22 14,36 14,36 C14,36 2,22 2,14 A12,12 0 0,1 14,2Z" fill="rgba(255,90,20,0.3)" stroke="rgba(255,215,0,0.5)" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="rgba(255,215,0,0.55)"/></svg>
     </div>
     <div class="map-pin" style="right:7%;top:30%;animation-delay:-1.6s">
-      <svg width="22" height="30" viewBox="0 0 28 38"><path d="M14,2 A12,12 0 0,1 26,14 C26,22 14,36 14,36 C14,36 2,22 2,14 A12,12 0 0,1 14,2Z" fill="rgba(255,90,20,0.26)" stroke="rgba(255,215,0,0.42)" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="rgba(255,215,0,0.45)"/></svg>
+      <svg width="20" height="26" viewBox="0 0 28 38"><path d="M14,2 A12,12 0 0,1 26,14 C26,22 14,36 14,36 C14,36 2,22 2,14 A12,12 0 0,1 14,2Z" fill="rgba(255,90,20,0.26)" stroke="rgba(255,215,0,0.42)" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="rgba(255,215,0,0.45)"/></svg>
     </div>
-    <div class="map-pin" style="left:14%;bottom:100px;animation-delay:-2.9s">
-      <svg width="18" height="24" viewBox="0 0 28 38"><path d="M14,2 A12,12 0 0,1 26,14 C26,22 14,36 14,36 C14,36 2,22 2,14 A12,12 0 0,1 14,2Z" fill="rgba(255,90,20,0.22)" stroke="rgba(255,215,0,0.35)" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="rgba(255,215,0,0.4)"/></svg>
-    </div>
-    <!-- COMPASS top-left -->
-    <svg style="position:absolute;left:3vw;top:90px;opacity:0.15;animation:compassSpin 6s ease-in-out infinite" width="54" height="54" viewBox="0 0 54 54">
+    <svg style="position:absolute;left:2vw;top:88px;opacity:0.15;animation:compassSpin 6s ease-in-out infinite" width="46" height="46" viewBox="0 0 54 54">
       <circle cx="27" cy="27" r="25" fill="none" stroke="rgba(255,215,0,0.9)" stroke-width="0.8"/>
       <polygon points="27,3 30,24 27,21 24,24" fill="rgba(255,100,30,0.9)"/>
       <polygon points="27,51 30,30 27,33 24,30" fill="rgba(255,215,0,0.65)"/>
-      <polygon points="3,27 24,24 21,27 24,30"  fill="rgba(255,215,0,0.65)"/>
+      <polygon points="3,27 24,24 21,27 24,30" fill="rgba(255,215,0,0.65)"/>
       <polygon points="51,27 30,24 33,27 30,30" fill="rgba(255,215,0,0.65)"/>
       <circle cx="27" cy="27" r="4.5" fill="none" stroke="rgba(255,215,0,0.7)" stroke-width="0.8"/>
       <text x="27" y="15" text-anchor="middle" font-size="7" fill="rgba(255,215,0,0.85)" font-family="serif">N</text>
@@ -627,31 +576,32 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   </div>
 
   <span class="sec-icon r1">📍</span>
-  <h2 class="shimmer r2" style="letter-spacing:2px;font-size:clamp(18px,2.8vw,30px)">कार्यक्रम स्थल</h2>
-  <div class="glass r3" style="width:min(92%,480px)">
-    <p class="venue-txt">ग्राम — बौरा, बाजितपुर (पुपरी)<br>जिला — सीतामढ़ी, बिहार — 843320</p>
-    <div style="margin-top:18px;padding-top:14px;border-top:.5px solid rgba(255,215,0,0.18)">
-      <p style="font-size:clamp(14px,1.8vw,19px)">
+  <span class="slide-h2 shimmer r2">कार्यक्रम स्थल</span>
+  <div class="glass r3" style="width:min(92%,460px)">
+    <span class="venue-txt">ग्राम — बौरा, बाजितपुर (पुपरी)<br>जिला — सीतामढ़ी, बिहार — 843320</span>
+    <div style="margin-top:14px;padding-top:12px;border-top:.5px solid rgba(255,215,0,0.18)">
+      <span style="font-size:clamp(13px,3vw,18px);display:block;">
         📞 <a href="tel:+917795976323" class="tel-link">7795976323</a>
-        <span style="opacity:.4;margin:0 10px">|</span>
+        <span style="opacity:.4;margin:0 8px">|</span>
         <a href="tel:+917416043377" class="tel-link">7416043377</a>
-      </p>
+      </span>
     </div>
   </div>
   <a class="btn r4" href="https://www.google.com/maps/search/?api=1&query=Baura,Pupri,Sitamarhi,Bihar" target="_blank">🗺️ Google Maps पर देखें</a>
-  <p class="child-q r4" style="margin-top:18px">"मेरे भैया के जनेऊ में जलूल-जलूल आना"</p>
-  <p style="font-size:12px;color:rgba(255,248,231,0.45);margin-top:4px" class="r4">— आरुष, गर्विता, रम्या, राघवेन्द्र, ओमी —</p>
-  <p class="host r5">🙏 सुमीत कुमार सिंह एवं समस्त परिवार</p>
+  <span class="child-q r4" style="margin-top:14px;">"मेरे भैया के जनेऊ में जलूल-जलूल आना"</span>
+  <span style="font-size:clamp(14px, 4vw, 20px); color:rgba(255,248,231,0.8); margin-top:8px; display:block;" class="r4">
+  — आरुष, गर्विता, रम्या, राघवेन्द्र, ओमी —
+</span>
+  <span class="host r5">🙏 सुमीत कुमार सिंह एवं समस्त परिवार</span>
 </div>
 
 <div id="dots">
   <div class="dot active" data-i="0"></div><div class="dot" data-i="1"></div>
   <div class="dot" data-i="2"></div><div class="dot" data-i="3"></div><div class="dot" data-i="4"></div>
 </div>
-</div><!-- #stage -->
+</div>
 
 <script>
-// ── Mandala ────────────────────────────────────────────────────
 (function(){
   const m=document.getElementById('m');let h='';const cx=200,cy=200;
   [{r:180,n:36,len:14,w:0.5},{r:155,n:24,len:18,w:0.7},{r:130,n:18,len:22,w:0.8},{r:100,n:12,len:20,w:1},{r:70,n:8,len:18,w:1.2},{r:40,n:6,len:14,w:1.2}]
@@ -663,7 +613,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   m.innerHTML=h;
 })();
 
-// ── Toran beads ────────────────────────────────────────────────
 (function(){
   const tg=document.getElementById('toran-g');let h='';
   for(let i=20;i<=980;i+=38){
@@ -675,7 +624,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   tg.innerHTML=h;
 })();
 
-// ── Blessing dots ──────────────────────────────────────────────
 (function(){
   const c=document.getElementById('bless-c');
   [{l:'10%',b:'130px'},{l:'17%',b:'85px'},{r:'10%',b:'130px'},{r:'17%',b:'80px'},
@@ -687,7 +635,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0100;user-select:
   });
 })();
 
-// ── Audio ──────────────────────────────────────────────────────
 const bgm=document.getElementById('bgm'),musicBtn=document.getElementById('music-btn');
 const noteIcon=document.getElementById('note-icon'),eq=document.getElementById('eq');
 let musicOn=false;bgm.volume=0.65;
@@ -696,13 +643,11 @@ function startMusic(){bgm.play().then(()=>setMusicUI(true)).catch(()=>setMusicUI
 function stopMusic(){bgm.pause();setMusicUI(false);}
 musicBtn.addEventListener('click',e=>{e.stopPropagation();musicOn?stopMusic():startMusic();});
 
-// ── Tap-to-start ───────────────────────────────────────────────
 const tapOverlay=document.getElementById('tap-to-start');let started=false;
 function dismissOverlay(){if(started)return;started=true;tapOverlay.style.opacity='0';setTimeout(()=>tapOverlay.style.display='none',800);startMusic();startBar(0);startAuto();}
 tapOverlay.addEventListener('click',dismissOverlay);
 tapOverlay.addEventListener('touchend',e=>{e.preventDefault();dismissOverlay();});
 
-// ── Slider ─────────────────────────────────────────────────────
 const DURATION=7000,slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot');
 const bar=document.getElementById('progress'),stage=document.getElementById('stage');
 let cur=0,timer=null,paused=false,progressStart=null,progressElapsed=0,holdTimer=null,isHolding=false,pointerDownTime=0;
@@ -719,21 +664,19 @@ stage.addEventListener('pointerup',e=>{if(!started)return;clearTimeout(holdTimer
 stage.addEventListener('pointerleave',()=>{clearTimeout(holdTimer);if(isHolding){resume();isHolding=false;}});
 stage.addEventListener('contextmenu',e=>e.preventDefault());
 
-// ── Falling petals & sparks ────────────────────────────────────
 const COLS=['#FF9933','#FFD700','#FF6B6B','#FF8C42','#FFC947'];
 function spawnPetal(){
-  const p=document.createElement('div'),sz=5+Math.random()*12,col=COLS[Math.floor(Math.random()*COLS.length)];
+  const p=document.createElement('div'),sz=5+Math.random()*10,col=COLS[Math.floor(Math.random()*COLS.length)];
   if(Math.random()<0.55) p.style.cssText=`position:absolute;width:${sz}px;height:${sz*1.4}px;background:${col};opacity:${0.25+Math.random()*0.35};border-radius:50% 0 50% 0;top:-20px;left:${Math.random()*100}%;z-index:2;pointer-events:none;`;
   else p.style.cssText=`position:absolute;width:${sz*.5}px;height:${sz*.5}px;background:rgba(255,215,0,${.3+Math.random()*.4});border-radius:50%;top:-10px;left:${Math.random()*100}%;z-index:2;pointer-events:none;box-shadow:0 0 ${sz}px rgba(255,215,0,.5);`;
   stage.appendChild(p);
   const dur=5000+Math.random()*4000,drift=(Math.random()-.5)*120;
   p.animate([{transform:`translateY(0) rotate(0deg) translateX(0)`,opacity:parseFloat(p.style.opacity)||.5},{transform:`translateY(110vh) rotate(${360+Math.random()*360}deg) translateX(${drift}px)`,opacity:0}],{duration:dur,easing:'cubic-bezier(0.2,0,0.8,1)'}).onfinish=()=>p.remove();
 }
-setInterval(spawnPetal,300);
+setInterval(spawnPetal,320);
 
-// ── Gold burst sparks ──────────────────────────────────────────
 function goldBurst(){
-  for(let i=0;i<6;i++){
+  for(let i=0;i<5;i++){
     const sp=document.createElement('div'),x=15+Math.random()*70,y=15+Math.random()*70;
     sp.style.cssText=`position:absolute;left:${x}%;top:${y}%;width:4px;height:4px;background:#FFD700;border-radius:50%;z-index:3;pointer-events:none;box-shadow:0 0 8px 2px rgba(255,215,0,.8);`;
     stage.appendChild(sp);
