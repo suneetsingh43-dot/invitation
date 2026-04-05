@@ -646,7 +646,6 @@ musicBtn.addEventListener('click',e=>{e.stopPropagation();musicOn?stopMusic():st
 const tapOverlay=document.getElementById('tap-to-start');let started=false;
 function dismissOverlay(){if(started)return;started=true;tapOverlay.style.opacity='0';setTimeout(()=>tapOverlay.style.display='none',800);startMusic();startBar(0);startAuto();}
 tapOverlay.addEventListener('click',dismissOverlay);
-tapOverlay.addEventListener('touchend',e=>{e.preventDefault();dismissOverlay();});
 
 const DURATION=7000,slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot');
 const bar=document.getElementById('progress'),stage=document.getElementById('stage');
